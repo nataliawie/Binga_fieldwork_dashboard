@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
-        <meta name="mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <link rel="stylesheet" href="css/leaflet.css">
-        <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
-        <link rel="stylesheet" href="css/L.Control.Locate.min.css">
-        <link rel="stylesheet" href="css/qgis2web.css">
-        <link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
-        <link rel="stylesheet" href="css/leaflet-measure.css">
-        <style>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+    <link rel="stylesheet" href="css/L.Control.Locate.min.css">
+    <link rel="stylesheet" href="css/qgis2web.css">
+    <link rel="stylesheet" href="css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+    <link rel="stylesheet" href="css/leaflet-measure.css">
+    <style>
         html, body {
             width: 100%;
             height: 100%;
@@ -22,90 +22,80 @@
         }
         #map {
             width: 100%;
-            height: 100%; 
+            height: calc(100% - 60px); /* Espaço para o título */
         }
-        /* Título fixo sobre o mapa */
-        .map-title {
-            position: absolute;
+        #map-title {
             width: 100%;
-            top: 10px;
-            left: 0;
-            pointer-events: none; /* permite clicar no mapa sem bloquear */
-            z-index: 1000; /* acima de todos os controles */
+            height: 60px;
+            line-height: 60px;
             text-align: center;
-        }
-        .map-title h2 {
-            margin: 0;
             font-family: Arial, sans-serif;
-            color: #222;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #f8f8f8;
+            color: #323232;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #ccc;
         }
-        .map-title span {
+        #map-title span {
             font-size: 14px;
             color: gray;
+            margin-left: 8px;
+            font-weight: normal;
         }
-        </style>
-        <title></title>
-    </head>
-    <body>
-        <div id="map"></div>
+        body {
+            padding-top: 60px; /* Empurra o mapa para baixo do título */
+        }
+    </style>
+    <title>LINCZ: Binga Project Site</title>
+</head>
+<body>
+    <div id="map-title">
+        LINCZ: Binga Project Site
+        <span>- Last update: 2025-08-13</span>
+    </div>
+    <div id="map"></div>
 
-        <script src="js/qgis2web_expressions.js"></script>
-        <script src="js/leaflet.js"></script>
-        <script src="js/L.Control.Layers.Tree.min.js"></script>
-        <script src="js/L.Control.Locate.min.js"></script>
-        <script src="js/multi-style-layer.js"></script>
-        <script src="js/leaflet.rotatedMarker.js"></script>
-        <script src="js/leaflet.pattern.js"></script>
-        <script src="js/leaflet-hash.js"></script>
-        <script src="js/Autolinker.min.js"></script>
-        <script src="js/rbush.min.js"></script>
-        <script src="js/labelgun.min.js"></script>
-        <script src="js/labels.js"></script>
-        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
-        <script src="js/leaflet-measure.js"></script>
-        <script src="data/BingaWardsboundaries_2.js"></script>
-        <script src="data/Bingatracks_3.js"></script>
-        <script src="data/MCCProjectSiteareas_4.js"></script>
-        <script src="data/MCCProjectSitepoints_5.js"></script>
+    <!-- Scripts -->
+    <script src="js/leaflet.js"></script>
+    <script src="js/qgis2web_expressions.js"></script>
+    <script src="js/L.Control.Layers.Tree.min.js"></script>
+    <script src="js/L.Control.Locate.min.js"></script>
+    <script src="js/multi-style-layer.js"></script>
+    <script src="js/leaflet.rotatedMarker.js"></script>
+    <script src="js/leaflet.pattern.js"></script>
+    <script src="js/leaflet-hash.js"></script>
+    <script src="js/Autolinker.min.js"></script>
+    <script src="js/rbush.min.js"></script>
+    <script src="js/labelgun.min.js"></script>
+    <script src="js/labels.js"></script>
+    <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+    <script src="js/leaflet-measure.js"></script>
 
-        <script>
+    <!-- Dados -->
+    <script src="data/BingaWardsboundaries_2.js"></script>
+    <script src="data/Bingatracks_3.js"></script>
+    <script src="data/MCCProjectSiteareas_4.js"></script>
+    <script src="data/MCCProjectSitepoints_5.js"></script>
+
+    <script>
+        // Inicialização do mapa
         var map = L.map('map', {
             zoomControl:false, maxZoom:23, minZoom:5
         }).fitBounds([[-17.793208713039373,27.388623030044556],[-17.74438355791924,27.464051296711233]]);
         var hash = new L.Hash(map);
-        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
-        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
 
-        // Título fixo sobre o mapa
-        var titleControl = L.control({position: 'topright'});
-        titleControl.onAdd = function(map) {
-            var div = L.DomUtil.create('div', 'map-title');
-            div.innerHTML = '<h2>LINCZ – Binga Project Site</h2><span>Last update: 2025-08-13</span>';
-            return div;
-        };
-        titleControl.addTo(map);
-
-        // Resto do código original do qgis2web continua aqui...
-        // remove popup's row if "visible-with-data"
-        function removeEmptyRowsFromPopupContent(content, feature) { /*...*/ }
-        function addClassToPopupIfMedia(content, popup) { /*...*/ }
-
-        var zoomControl = L.control.zoom({ position: 'topleft' }).addTo(map);
+        // Zoom e localização
+        var zoomControl = L.control.zoom({position: 'topleft'}).addTo(map);
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
 
-        var measureControl = new L.Control.Measure({
-            position: 'topleft',
-            primaryLengthUnit: 'meters',
-            secondaryLengthUnit: 'kilometers',
-            primaryAreaUnit: 'sqmeters',
-            secondaryAreaUnit: 'hectares'
-        });
-        measureControl.addTo(map);
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0].innerHTML = '';
-        document.getElementsByClassName('leaflet-control-measure-toggle')[0].className += ' fas fa-ruler';
-
-        // Continua todo o resto do seu código, incluindo camadas, popups e legendas...
-        </script>
-    </body>
+        // Resto do código JS do seu projeto (camadas, popups, estilos, controle de camadas) permanece igual
+        // ...
+        // Certifique-se que todos os arquivos JS e dados existam nos caminhos corretos
+    </script>
+</body>
 </html>
