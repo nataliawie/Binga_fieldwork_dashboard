@@ -40,14 +40,14 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
         <script src="js/leaflet-measure.js"></script>
-        <script src="data/Binga_Wars_Projection4326_1.js"></script>
-        <script src="data/Binga_joint_tracks_wards_2.js"></script>
-        <script src="data/MCC_project_site_polygons_3.js"></script>
-        <script src="data/MCC_project_site_waypoints_4.js"></script>
+        <script src="data/BingaWardsboundaries_2.js"></script>
+        <script src="data/Bingatracks_3.js"></script>
+        <script src="data/MCCProjectSiteareas_4.js"></script>
+        <script src="data/MCCProjectSitepoints_5.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:23, minZoom:5
-        }).fitBounds([[-18.570927454164845,26.46506223097564],[-17.2112128640063,28.878766764312985]]);
+        }).fitBounds([[-17.793208713039373,27.388623030044556],[-17.74438355791924,27.464051296711233]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -109,7 +109,20 @@
         });
         layer_GoogleSatellite_0;
         map.addLayer(layer_GoogleSatellite_0);
-        function pop_Binga_Wars_Projection4326_1(feature, layer) {
+        map.createPane('pane_GoogleLabels_1');
+        map.getPane('pane_GoogleLabels_1').style.zIndex = 401;
+        var layer_GoogleLabels_1 = L.tileLayer('https://mt1.google.com/vt/lyrs=h&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleLabels_1',
+            opacity: 1.0,
+            attribution: '<a href="https://www.google.at/permissions/geoguidelines/attr-guide.html">Map data ©2015 Google</a>',
+            minZoom: 5,
+            maxZoom: 23,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_GoogleLabels_1;
+        map.addLayer(layer_GoogleLabels_1);
+        function pop_BingaWardsboundaries_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">COUNTRY</th>\
@@ -135,9 +148,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Binga_Wars_Projection4326_1_0() {
+        function style_BingaWardsboundaries_2_0() {
             return {
-                pane: 'pane_Binga_Wars_Projection4326_1',
+                pane: 'pane_BingaWardsboundaries_2',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -148,21 +161,21 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_Binga_Wars_Projection4326_1');
-        map.getPane('pane_Binga_Wars_Projection4326_1').style.zIndex = 401;
-        map.getPane('pane_Binga_Wars_Projection4326_1').style['mix-blend-mode'] = 'normal';
-        var layer_Binga_Wars_Projection4326_1 = new L.geoJson(json_Binga_Wars_Projection4326_1, {
+        map.createPane('pane_BingaWardsboundaries_2');
+        map.getPane('pane_BingaWardsboundaries_2').style.zIndex = 402;
+        map.getPane('pane_BingaWardsboundaries_2').style['mix-blend-mode'] = 'normal';
+        var layer_BingaWardsboundaries_2 = new L.geoJson(json_BingaWardsboundaries_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_Binga_Wars_Projection4326_1',
-            layerName: 'layer_Binga_Wars_Projection4326_1',
-            pane: 'pane_Binga_Wars_Projection4326_1',
-            onEachFeature: pop_Binga_Wars_Projection4326_1,
-            style: style_Binga_Wars_Projection4326_1_0,
+            dataVar: 'json_BingaWardsboundaries_2',
+            layerName: 'layer_BingaWardsboundaries_2',
+            pane: 'pane_BingaWardsboundaries_2',
+            onEachFeature: pop_BingaWardsboundaries_2,
+            style: style_BingaWardsboundaries_2_0,
         });
-        bounds_group.addLayer(layer_Binga_Wars_Projection4326_1);
-        map.addLayer(layer_Binga_Wars_Projection4326_1);
-        function pop_Binga_joint_tracks_wards_2(feature, layer) {
+        bounds_group.addLayer(layer_BingaWardsboundaries_2);
+        map.addLayer(layer_BingaWardsboundaries_2);
+        function pop_Bingatracks_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(String(feature.properties['name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -181,9 +194,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_Binga_joint_tracks_wards_2_0() {
+        function style_Bingatracks_3_0() {
             return {
-                pane: 'pane_Binga_joint_tracks_wards_2',
+                pane: 'pane_Bingatracks_3',
                 opacity: 1,
                 color: 'rgba(0,0,0,1.0)',
                 dashArray: '',
@@ -194,9 +207,9 @@
                 interactive: false,
             }
         }
-        function style_Binga_joint_tracks_wards_2_1() {
+        function style_Bingatracks_3_1() {
             return {
-                pane: 'pane_Binga_joint_tracks_wards_2',
+                pane: 'pane_Bingatracks_3',
                 opacity: 1,
                 color: 'rgba(236,227,196,1.0)',
                 dashArray: '',
@@ -207,21 +220,21 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_Binga_joint_tracks_wards_2');
-        map.getPane('pane_Binga_joint_tracks_wards_2').style.zIndex = 402;
-        map.getPane('pane_Binga_joint_tracks_wards_2').style['mix-blend-mode'] = 'normal';
-        var layer_Binga_joint_tracks_wards_2 = new L.geoJson.multiStyle(json_Binga_joint_tracks_wards_2, {
+        map.createPane('pane_Bingatracks_3');
+        map.getPane('pane_Bingatracks_3').style.zIndex = 403;
+        map.getPane('pane_Bingatracks_3').style['mix-blend-mode'] = 'normal';
+        var layer_Bingatracks_3 = new L.geoJson.multiStyle(json_Bingatracks_3, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_Binga_joint_tracks_wards_2',
-            layerName: 'layer_Binga_joint_tracks_wards_2',
-            pane: 'pane_Binga_joint_tracks_wards_2',
-            onEachFeature: pop_Binga_joint_tracks_wards_2,
-            styles: [style_Binga_joint_tracks_wards_2_0,style_Binga_joint_tracks_wards_2_1,]
+            dataVar: 'json_Bingatracks_3',
+            layerName: 'layer_Bingatracks_3',
+            pane: 'pane_Bingatracks_3',
+            onEachFeature: pop_Bingatracks_3,
+            styles: [style_Bingatracks_3_0,style_Bingatracks_3_1,]
         });
-        bounds_group.addLayer(layer_Binga_joint_tracks_wards_2);
-        map.addLayer(layer_Binga_joint_tracks_wards_2);
-        function pop_MCC_project_site_polygons_3(feature, layer) {
+        bounds_group.addLayer(layer_Bingatracks_3);
+        map.addLayer(layer_Bingatracks_3);
+        function pop_MCCProjectSiteareas_4(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Name</th>\
@@ -259,7 +272,7 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        var pattern_MCC_project_site_polygons_3_0 = new L.StripePattern({
+        var pattern_MCCProjectSiteareas_4_0 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#377eb8',
@@ -267,19 +280,19 @@
             spaceOpacity: 0,
             angle: 315
         });
-        pattern_MCC_project_site_polygons_3_0.addTo(map);
-        function style_MCC_project_site_polygons_3_0() {
+        pattern_MCCProjectSiteareas_4_0.addTo(map);
+        function style_MCCProjectSiteareas_4_0() {
             return {
-                pane: 'pane_MCC_project_site_polygons_3',
+                pane: 'pane_MCCProjectSiteareas_4',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_MCC_project_site_polygons_3_0,
+                fillPattern: pattern_MCCProjectSiteareas_4_0,
                 interactive: true,
             }
         }
-        function style_MCC_project_site_polygons_3_1() {
+        function style_MCCProjectSiteareas_4_1() {
             return {
-                pane: 'pane_MCC_project_site_polygons_3',
+                pane: 'pane_MCCProjectSiteareas_4',
                 opacity: 1,
                 color: 'rgba(55,126,184,1.0)',
                 dashArray: '',
@@ -290,21 +303,21 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_MCC_project_site_polygons_3');
-        map.getPane('pane_MCC_project_site_polygons_3').style.zIndex = 403;
-        map.getPane('pane_MCC_project_site_polygons_3').style['mix-blend-mode'] = 'normal';
-        var layer_MCC_project_site_polygons_3 = new L.geoJson.multiStyle(json_MCC_project_site_polygons_3, {
+        map.createPane('pane_MCCProjectSiteareas_4');
+        map.getPane('pane_MCCProjectSiteareas_4').style.zIndex = 404;
+        map.getPane('pane_MCCProjectSiteareas_4').style['mix-blend-mode'] = 'normal';
+        var layer_MCCProjectSiteareas_4 = new L.geoJson.multiStyle(json_MCCProjectSiteareas_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_MCC_project_site_polygons_3',
-            layerName: 'layer_MCC_project_site_polygons_3',
-            pane: 'pane_MCC_project_site_polygons_3',
-            onEachFeature: pop_MCC_project_site_polygons_3,
-            styles: [style_MCC_project_site_polygons_3_0,style_MCC_project_site_polygons_3_1,]
+            dataVar: 'json_MCCProjectSiteareas_4',
+            layerName: 'layer_MCCProjectSiteareas_4',
+            pane: 'pane_MCCProjectSiteareas_4',
+            onEachFeature: pop_MCCProjectSiteareas_4,
+            styles: [style_MCCProjectSiteareas_4_0,style_MCCProjectSiteareas_4_1,]
         });
-        bounds_group.addLayer(layer_MCC_project_site_polygons_3);
-        map.addLayer(layer_MCC_project_site_polygons_3);
-        function pop_MCC_project_site_waypoints_4(feature, layer) {
+        bounds_group.addLayer(layer_MCCProjectSiteareas_4);
+        map.addLayer(layer_MCCProjectSiteareas_4);
+        function pop_MCCProjectSitepoints_5(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Elevation</th>\
@@ -313,9 +326,6 @@
                     <tr>\
                         <th scope="row">Time</th>\
                         <td class="visible-with-data" id="Time">' + (feature.properties['Time'] !== null ? autolinker.link(String(feature.properties['Time']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(String(feature.properties['ID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Name</th>\
@@ -333,10 +343,10 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_MCC_project_site_waypoints_4_0() {
+        function style_MCCProjectSitepoints_5_0() {
             return {
-                pane: 'pane_MCC_project_site_waypoints_4',
-                radius: 3.599999999999997,
+                pane: 'pane_MCCProjectSitepoints_5',
+                radius: 3.6,
                 opacity: 1,
                 color: 'rgba(83,83,83,1.0)',
                 dashArray: '',
@@ -349,26 +359,26 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_MCC_project_site_waypoints_4');
-        map.getPane('pane_MCC_project_site_waypoints_4').style.zIndex = 404;
-        map.getPane('pane_MCC_project_site_waypoints_4').style['mix-blend-mode'] = 'normal';
-        var layer_MCC_project_site_waypoints_4 = new L.geoJson(json_MCC_project_site_waypoints_4, {
+        map.createPane('pane_MCCProjectSitepoints_5');
+        map.getPane('pane_MCCProjectSitepoints_5').style.zIndex = 405;
+        map.getPane('pane_MCCProjectSitepoints_5').style['mix-blend-mode'] = 'normal';
+        var layer_MCCProjectSitepoints_5 = new L.geoJson(json_MCCProjectSitepoints_5, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_MCC_project_site_waypoints_4',
-            layerName: 'layer_MCC_project_site_waypoints_4',
-            pane: 'pane_MCC_project_site_waypoints_4',
-            onEachFeature: pop_MCC_project_site_waypoints_4,
+            dataVar: 'json_MCCProjectSitepoints_5',
+            layerName: 'layer_MCCProjectSitepoints_5',
+            pane: 'pane_MCCProjectSitepoints_5',
+            onEachFeature: pop_MCCProjectSitepoints_5,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_MCC_project_site_waypoints_4_0(feature));
+                return L.circleMarker(latlng, style_MCCProjectSitepoints_5_0(feature));
             },
         });
-        bounds_group.addLayer(layer_MCC_project_site_waypoints_4);
-        map.addLayer(layer_MCC_project_site_waypoints_4);
+        bounds_group.addLayer(layer_MCCProjectSitepoints_5);
+        map.addLayer(layer_MCCProjectSitepoints_5);
         var osmGeocoder = new L.Control.Geocoder({
             collapsed: true,
             position: 'topleft',
@@ -380,10 +390,11 @@
         document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
         .title += 'Search for a place';
         var overlaysTree = [
-            {label: '<img src="legend/MCC_project_site_waypoints_4.png" /> MCC_project_site_waypoints', layer: layer_MCC_project_site_waypoints_4},
-            {label: '<img src="legend/MCC_project_site_polygons_3.png" /> MCC_project_site_polygons', layer: layer_MCC_project_site_polygons_3},
-            {label: '<img src="legend/Binga_joint_tracks_wards_2.png" /> Binga_joint_tracks_wards', layer: layer_Binga_joint_tracks_wards_2},
-            {label: '<img src="legend/Binga_Wars_Projection4326_1.png" /> Binga_Wars_Projection4326', layer: layer_Binga_Wars_Projection4326_1},
+            {label: '<img src="legend/MCCProjectSitepoints_5.png" /> MCC Project Site points', layer: layer_MCCProjectSitepoints_5},
+            {label: '<img src="legend/MCCProjectSiteareas_4.png" /> MCC Project Site areas', layer: layer_MCCProjectSiteareas_4},
+            {label: '<img src="legend/Bingatracks_3.png" /> Binga tracks', layer: layer_Bingatracks_3},
+            {label: '<img src="legend/BingaWardsboundaries_2.png" /> Binga Wards boundaries', layer: layer_BingaWardsboundaries_2},
+            {label: "Google Labels", layer: layer_GoogleLabels_1},
             {label: "Google Satellite", layer: layer_GoogleSatellite_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
@@ -397,27 +408,27 @@
         lay.addTo(map);
         setBounds();
         var i = 0;
-        layer_Binga_Wars_Projection4326_1.eachLayer(function(layer) {
+        layer_BingaWardsboundaries_2.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['NAME_3'] !== null?String('<div style="color: #323232; font-size: 12pt; font-weight: bold; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['NAME_3']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Binga_Wars_Projection4326_1'});
+            layer.bindTooltip((layer.feature.properties['NAME_3'] !== null?String('<div style="color: #323232; font-size: 12pt; font-weight: bold; font-family: \'Open Sans\', sans-serif;">' + layer.feature.properties['NAME_3']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_BingaWardsboundaries_2'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
               addLabel(layer, i);
               i++;
         });
-        resetLabels([layer_Binga_Wars_Projection4326_1]);
+        resetLabels([layer_BingaWardsboundaries_2]);
         map.on("zoomend", function(){
-            resetLabels([layer_Binga_Wars_Projection4326_1]);
+            resetLabels([layer_BingaWardsboundaries_2]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_Binga_Wars_Projection4326_1]);
+            resetLabels([layer_BingaWardsboundaries_2]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_Binga_Wars_Projection4326_1]);
+            resetLabels([layer_BingaWardsboundaries_2]);
         });
         </script>
     </body>
